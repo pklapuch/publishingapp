@@ -2,7 +2,8 @@ name: GitHub Actions Demo
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on: 
   repository_dispatch:
-  
+  workflow_dispatch:
+
 jobs:
   Process-next-resign-request:
     runs-on: macos-latest
@@ -30,6 +31,8 @@ jobs:
           
           if [ $RESULT == 1 ]; then
             RESULT=$(./process_request.sh)
+          else
+            echo "Nothing to do".
           fi
 
           if [ $RESULT == 1 ]; then
@@ -38,6 +41,7 @@ jobs:
             requestID=$(echo "$json" | jq '.requestID' | tr -d '"')
             baseURL=https://esuiymlk0l.execute-api.us-east-2.amazonaws.com/dev/publishing
 
+            echo "Update resignedIPA for requestID: $requestID"
             RESULT=$(./resignutility updateIPA -baseURL $baseURL -ipaPath $ipaFilename -requestID $requestID)
           fi
 
