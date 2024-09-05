@@ -17,19 +17,32 @@ jobs:
         run: |
           brew install jq
 
-      - name: Download SDK
+      - name: Download SDK (Executable)
         run: |
-          UTILITY_URL="https://utilitiy-tools.s3.us-east-2.amazonaws.com/resignutility"
-          curl -O $UTILITY_URL
+          curl -O "https://utilitiy-tools.s3.us-east-2.amazonaws.com/resignutility"
           chmod 777 resignutility
 
-      - name: Get Pending Request (if any)
+      - name: Download SDK (Script)
+        run: |
+          curl -O "https://utilitiy-tools.s3.us-east-2.amazonaws.com/process_request.sh"
+          chmod 777 process_request.sh          
+
+      - name: Process next pending request (if any)
         run: |
           RESULT=$(./resignutility getNext -baseURL https://esuiymlk0l.execute-api.us-east-2.amazonaws.com/dev/publishing)
           if [ $RESULT == 1 ]; then
             json=$(cat config.json)
             echo "$json"
           fi
-          
+
+          if [ $RESULT == 1 ]; then
+            result=$(./process_request.sh)
+          fi
+
+          if [ $RESULT == 1 ]; then
+            echo "SUCCESS"
+          else
+            echo "FAILURE"
+          fi
       
       - run: echo "🍏 This job's status is ${{ job.status }}."
