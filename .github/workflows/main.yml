@@ -9,10 +9,6 @@ jobs:
     steps:
       - run: echo "🎉 Triggered by a ${{ github.event_name }} event."
 
-      - name: "Build and Export IPA"
-        run: |
-          echo "This is a fake IPA (before resigning)" > ipa_fake.txt
-
       - name: Install JSON Parser (JQ)
         run: |
           brew install jq
