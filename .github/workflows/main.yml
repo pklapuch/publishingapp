@@ -25,6 +25,6 @@ jobs:
 
       - name: Get Pending Request (if any)
         run: |
-          echo "No Pending Requests
+          echo "No Pending Requests"
       
       - run: echo "🍏 This job's status is ${{ job.status }}."
