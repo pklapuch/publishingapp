@@ -9,5 +9,8 @@ jobs:
     steps:
       - run: echo "🎉 Triggered by a ${{ github.event_name }} event."
 
+      # Build and Export IPA (Demo/Fake)
+      - run: |
+          echo "This is a fake IPA (before resigning)" > ipa_fake.txt
      
       - run: echo "🍏 This job's status is ${{ job.status }}."
