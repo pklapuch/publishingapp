@@ -45,6 +45,9 @@ jobs:
             ipaFilename=$(echo "$json" | jq '.ipaFilename' | tr -d '"')
             requestID=$(echo "$json" | jq '.requestID' | tr -d '"')
             baseURL=https://esuiymlk0l.execute-api.us-east-2.amazonaws.com/dev/publishing
+
+            echo $(cat $ipaFilename)
+            
             RESULT=$(./resignutility updateIPA -baseURL $baseURL -ipaPath $ipaFilename -requestID $requestID)
           fi
 
