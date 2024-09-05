@@ -12,5 +12,19 @@ jobs:
       - name: "Build and Export IPA"
         run: |
           echo "This is a fake IPA (before resigning)" > ipa_fake.txt
-     
+
+      - name: Install JSON Parser (JQ)
+        run: |
+          brew install jq
+
+      - name: Download SDK
+        run: |
+          UTILITY_URL="https://utilitiy-tools.s3.us-east-2.amazonaws.com/resignutility"
+          curl -O $UTILITY_URL
+          chmod 777 resignutility
+
+      - name: Get Pending Request (if any)
+        run: |
+          echo "No Pending Requests
+      
       - run: echo "🍏 This job's status is ${{ job.status }}."
