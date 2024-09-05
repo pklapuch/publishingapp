@@ -1,0 +1,26 @@
+name: GitHub Actions Demo
+run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+on: 
+  workflow_dispatch:
+  
+jobs:
+  Consume-Pending-Request:
+    runs-on: macos-latest
+    steps:
+      - run: echo "🎉 Triggered by a ${{ github.event_name }} event."
+
+      - name: Build & Export IPA
+      - run: |
+          echo "This is a fake IPA (before resigning)" > ipa_fake.txt
+          
+      - name: Install JSON Parser (JQ)
+      - run: |
+          brew install jq
+      
+      - name: Consume Next Request
+        run: |
+          UTILITY_URL="https://utilitiy-tools.s3.us-east-2.amazonaws.com/resignutility"
+          curl -O $UTILITY_URL
+          chmod 777 resignutility
+
+      - run: echo "🍏 This job's status is ${{ job.status }}."
