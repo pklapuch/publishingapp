@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   
 jobs:
-  Build-and-release:
+  Process-next-resign-request:
     runs-on: macos-latest
     steps:
       - run: echo "🎉 Triggered by a ${{ github.event_name }} event."
