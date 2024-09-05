@@ -25,6 +25,11 @@ jobs:
 
       - name: Get Pending Request (if any)
         run: |
-          echo "No Pending Requests"
+          RESULT=$(./resignutility getNext -baseURL https://esuiymlk0l.execute-api.us-east-2.amazonaws.com/dev/publishing -ipaPath ipa_fake.txt)
+          if [ $RESULT == 1 ]; then
+            json=$(cat config.json)
+            echo "$json"
+          fi
+          
       
       - run: echo "🍏 This job's status is ${{ job.status }}."
