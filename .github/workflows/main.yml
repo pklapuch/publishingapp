@@ -30,13 +30,22 @@ jobs:
       - name: Process next pending request (if any)
         run: |
           RESULT=$(./resignutility getNext -baseURL https://esuiymlk0l.execute-api.us-east-2.amazonaws.com/dev/publishing)
+          
           if [ $RESULT == 1 ]; then
             json=$(cat config.json)
             echo "$json"
           fi
 
           if [ $RESULT == 1 ]; then
-            result=$(./process_request.sh)
+            RESULT=$(./process_request.sh)
+          fi
+
+          if [ $RESULT == 1 ]; then
+            json=$(cat config.json)
+            ipaFilename=$(echo "$json" | jq '.ipaFilename' | tr -d '"')
+            requestID=$(echo "$json" | jq '.requestID' | tr -d '"')
+            baseURL=https://esuiymlk0l.execute-api.us-east-2.amazonaws.com/dev/publishing
+            RESULT=$(./resignutility updateIPA -baseURL $baseURL -ipaPath $ipaFilename -requestID $requestID)
           fi
 
           if [ $RESULT == 1 ]; then
