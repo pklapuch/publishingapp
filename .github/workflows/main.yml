@@ -38,15 +38,13 @@ jobs:
             requestID=$(echo "$json" | jq '.requestID' | tr -d '"')
             baseURL=https://esuiymlk0l.execute-api.us-east-2.amazonaws.com/dev/publishing
 
-            echo "ResignedIPA: $(cat $ipaFilename)"
-            
             RESULT=$(./resignutility updateIPA -baseURL $baseURL -ipaPath $ipaFilename -requestID $requestID)
           fi
 
           if [ $RESULT == 1 ]; then
-            echo "SUCCESS"
+            echo "Completed with SUCCESS"
           else
-            echo "FAILURE"
+            echo "Completed with FAILURE"
           fi
       
       - run: echo "🍏 This job's status is ${{ job.status }}."
