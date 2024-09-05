@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   
 jobs:
-  Consume-Pending-Request:
+  Build-and-release:
     runs-on: macos-latest
     steps:
       - run: echo "🎉 Triggered by a ${{ github.event_name }} event."
