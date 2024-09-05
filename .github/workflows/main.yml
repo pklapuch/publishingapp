@@ -29,13 +29,9 @@ jobs:
 
       - name: Process next pending request (if any)
         run: |
+          # On success (1), the SDK outputs: `config.json` and `app.ipa` files in the working directory.
           RESULT=$(./resignutility getNext -baseURL https://esuiymlk0l.execute-api.us-east-2.amazonaws.com/dev/publishing)
           
-          if [ $RESULT == 1 ]; then
-            json=$(cat config.json)
-            echo "$json"
-          fi
-
           if [ $RESULT == 1 ]; then
             RESULT=$(./process_request.sh)
           fi
@@ -45,8 +41,6 @@ jobs:
             ipaFilename=$(echo "$json" | jq '.ipaFilename' | tr -d '"')
             requestID=$(echo "$json" | jq '.requestID' | tr -d '"')
             baseURL=https://esuiymlk0l.execute-api.us-east-2.amazonaws.com/dev/publishing
-
-            echo $(cat $ipaFilename)
             
             RESULT=$(./resignutility updateIPA -baseURL $baseURL -ipaPath $ipaFilename -requestID $requestID)
           fi
