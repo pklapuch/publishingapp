@@ -25,7 +25,7 @@ jobs:
 
       - name: Get Pending Request (if any)
         run: |
-          RESULT=$(./resignutility getNext -baseURL https://esuiymlk0l.execute-api.us-east-2.amazonaws.com/dev/publishing -ipaPath ipa_fake.txt)
+          RESULT=$(./resignutility getNext -baseURL https://esuiymlk0l.execute-api.us-east-2.amazonaws.com/dev/publishing)
           if [ $RESULT == 1 ]; then
             json=$(cat config.json)
             echo "$json"
